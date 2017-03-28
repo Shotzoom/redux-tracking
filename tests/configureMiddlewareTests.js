@@ -65,4 +65,15 @@ describe('configureMiddleware', () => {
     expect(payload).to.have.been.calledWith({ name: 'roger' });
     expect(mixpanel.track).to.have.been.calledWithExactly(metadata.mixpanel.event, 'roger');
   });
+
+  it('should call thunk to resolve tracking api.', () => {
+    const mixpanel = createMixpanelStub();
+    const thunk = sinon.spy(() => mixpanel);
+    const middleware = configureMiddleware(thunk)(createStoreStub());
+    const metadata = createTrackingMetadata();
+
+    middleware(noop)({ type: 'action', meta: metadata });
+    expect(thunk).to.have.callCount(1);
+    expect(mixpanel.track).to.have.callCount(1);
+  });
 });

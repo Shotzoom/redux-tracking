@@ -71,3 +71,11 @@ import { track } from '@shotzoom/redux-tracking';
 dispatch(track('view more', { page: 10 }));
 dispatch(track('view more', (state) => { query: state.query }));
 ```
+
+### Tracking api thunks
+
+Because mixpanel can be loaded through an async script tag, configuring the middleware explicitly on page load may not be possible. You can instead pass a thunk that returns the mixpanel api.
+
+```js
+configureMiddleware(() => window.mixpanel);
+```
