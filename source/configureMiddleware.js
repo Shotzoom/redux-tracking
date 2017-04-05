@@ -55,7 +55,7 @@ export default mixpanel => (store) => {
       } catch (e) {
         if (process.env.NODE_ENV === 'development') {
           /* eslint-disable no-console */
-          const error = `Failed to track event ${action.meta.mixpanel} with ${e}.`;
+          const error = `Failed to track ${JSON.stringify(action.meta.mixpanel)} with ${e}.`;
 
           if (typeof console !== 'undefined') {
             if (typeof console.error === 'function') {
